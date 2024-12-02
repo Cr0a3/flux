@@ -1,17 +1,18 @@
 use crate::ast::*;
+use crate::Span;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum SemaError {}
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SemnaticAnalysis<'a> {
-    stmts: &'a Vec<DeclarationStatement>,
+    stmts: &'a Vec<Span<DeclarationStatement>>,
 
     errors: Vec<SemaError>,
 }
 
 impl<'a> SemnaticAnalysis<'a> {
-    pub fn new(stmts: &'a Vec<DeclarationStatement>) -> Self {
+    pub fn new(stmts: &'a Vec<Span<DeclarationStatement>>) -> Self {
         Self {
             stmts: stmts,
             errors: Vec::new(),

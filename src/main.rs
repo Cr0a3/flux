@@ -9,9 +9,10 @@ mod codegen;
 mod semnatic;
 mod error;
 mod ast;
+mod span;
+pub use span::*;
 
 fn driver_main() -> Result<(), Box<dyn std::error::Error>> {
-    
     let mut cli = Cli::new("flux", "The flux programming language", "dev", "Cr0a3, SunkenPotato");
 
     // Input/Ouput file

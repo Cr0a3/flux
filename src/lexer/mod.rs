@@ -1,7 +1,6 @@
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Token {
-
-}
+mod token;
+pub use token::*;
+use crate::Span;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum LexingError {
@@ -14,7 +13,7 @@ pub struct Lexer<'a> {
 
     errors: Vec<LexingError>,
 
-    tokens: Vec<Token>,
+    tokens: Vec<Span<Token>>,
 }
 
 impl<'a> Lexer<'a> {
@@ -38,7 +37,7 @@ impl<'a> Lexer<'a> {
         &self.errors
     }
 
-    pub fn tokens(&self) -> &Vec<Token> {
+    pub fn tokens(&self) -> &Vec<Span<Token>> {
         &self.tokens
     }
 }

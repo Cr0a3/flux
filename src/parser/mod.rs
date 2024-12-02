@@ -1,5 +1,6 @@
 use crate::lexer::Token;
 use crate::ast::*;
+use crate::Span;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ParserError {
@@ -8,14 +9,14 @@ pub enum ParserError {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Parser<'a> {
-    tokens: &'a Vec<Token>,
+    tokens: &'a Vec<Span<Token>>,
     errors: Vec<ParserError>,
 
-    out: Vec<DeclarationStatement>,
+    out: Vec<Span<DeclarationStatement>>,
 }
 
 impl<'a> Parser<'a> {
-    pub fn new(tokens: &'a Vec<Token>) -> Self {
+    pub fn new(tokens: &'a Vec<Span<Token>>) -> Self {
         Self {
             tokens: tokens,
             errors: Vec::new(),
@@ -35,7 +36,7 @@ impl<'a> Parser<'a> {
         &self.errors
     }
 
-    pub fn out(&self) -> &Vec<DeclarationStatement> {
+    pub fn out(&self) -> &Vec<Span<DeclarationStatement>> {
         &self.out
     }
 }
