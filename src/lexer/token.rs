@@ -56,6 +56,9 @@ pub enum Token {
     /// `/// ...`
     DocComment(String),
 
+    /// ;
+    Semicolon
+
 }
 
 impl PartialEq for Token {

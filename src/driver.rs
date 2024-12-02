@@ -106,7 +106,7 @@ impl FluxCompiler {
 
     /// Runs the compiler
     pub fn compile(&mut self) {
-        let err = error::ErrorPrettyPrinter::new(self.file_path.to_string());
+        let err = error::ErrorPrettyPrinter::new(self.file_path.to_string(), self.code.to_string());
 
         // 1. We lex the file
 
