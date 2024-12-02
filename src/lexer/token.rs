@@ -1,27 +1,61 @@
+/// A token returned by the lexer
 #[derive(Debug, Clone)]
 pub enum Token {
     // Literals
 
+    /// identifiers
     Ident(String),
+    /// constant intenger
     Int(i64),
+    /// constant float
     Float(f64),
 
     // Keywords
 
+    /// fn
     Fn,
+    /// let
     Let,
 
     // Tokens
 
-    LParan, // (
-    RParan, // )
-    LCurly, // {
-    RCurly, // }
-    Add,    // +
-    Sub,    // -
-    Mul,    // *
-    Div,    // /
-    Equal,  // =
+    /// (
+    LParan,
+    /// )
+    RParan,
+    /// {
+    LCurly,
+    /// }
+    RCurly,
+    /// +
+    Add,
+    /// -
+    Sub,
+    /// *
+    Mul,
+    /// /
+    Div,
+    /// ^
+    Xor,
+    /// |
+    BinaryOr,
+    /// &
+    BinaryAnd,
+    /// &&
+    LogicalAnd,
+    /// ||
+    LogicalOr,
+    /// !
+    Not,
+    /// =
+    Equal,
+
+    // Comments (maybe used in the future by fluxdoc?)
+    /// `// ...` or `/* ... */`
+    Comment(String),
+    /// `/// ...`
+    DocComment(String),
+
 }
 
 impl PartialEq for Token {

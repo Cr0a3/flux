@@ -1,10 +1,17 @@
+//! A span is value with a position 
+
 use std::ops::{Deref, DerefMut, Range};
 use std::fmt::Debug;
 
+
+/// A span is value with a position 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Span<T: Debug + Clone + PartialEq + Eq + ?Sized> {
+    /// The line
     pub line: Range<u64>,
+    /// The coloumn
     pub coloumn: Range<u64>,
+    /// The inner value
     pub inner: T,
 }
 

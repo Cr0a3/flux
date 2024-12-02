@@ -1,15 +1,19 @@
-#[forbid(missing_docs)]
+#![forbid(missing_docs)]
+#![allow(dead_code)]
+
+//! # The flux language
+//! This crate contains the compiler for the `flux` language
 
 use ygen::Support::Cli;
 
-mod driver;
-mod lexer;
-mod parser;
-mod codegen;
-mod semnatic;
-mod error;
-mod ast;
-mod span;
+pub mod driver;
+pub mod lexer;
+pub mod parser;
+pub mod codegen;
+pub mod semnatic;
+pub mod error;
+pub mod ast;
+pub mod span;
 pub use span::*;
 
 fn driver_main() -> Result<(), Box<dyn std::error::Error>> {

@@ -1,21 +1,31 @@
+//! Merges all steps together 
+
 use std::{ fs::File, io::Read };
 use ygen::Target::Triple;
 
 use crate::{lexer, parser, semnatic, codegen, error};
 
+/// The format the compiler should output
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum FluxCompilerOut {
+    /// Output to object file (compiled machine code)
     Object,
+    /// Output raw assembly code
     Assembly,
+    /// Output ygen ir
     Ir,
 }
 
+/// The optimization level flux should use
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum FluxCompilerOpt {
+    /// No optimizations at all
     O0,
+    /// Every possible optimization which is usfull
     O3,
 }
 
+/// The flux compiler
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FluxCompiler {
     emit: FluxCompilerOut,
@@ -32,6 +42,7 @@ pub struct FluxCompiler {
 }
 
 impl FluxCompiler {
+    /// Creates a new flux compiler
     pub fn new(file_path: &String) -> Result<Self, std::io::Error> {
         // Here we just read the input file
         
@@ -52,39 +63,48 @@ impl FluxCompiler {
         })
     }
 
+    /// The compiler should use O0 optimization level
     pub fn set_o0(&mut self) {
         self.opt_level = FluxCompilerOpt::O0;
     }
 
+    /// The compiler should use O3 optimization level
     pub fn set_o3(&mut self) {
         self.opt_level = FluxCompilerOpt::O3;
     }
 
+    /// The compiler should use the given pass(es)
     pub fn set_passes(&mut self, _passes: &String) {
         todo!("we currently can't set a specific pass order");
     }
 
+    /// The compiler should emit assembly code
     pub fn emit_asm(&mut self) {
         self.emit = FluxCompilerOut::Assembly;
     }
 
+    /// The compiler should emit ir
     pub fn emit_ir(&mut self) {
         self.emit = FluxCompilerOut::Ir;
     }
 
+    /// Sets the target triple for the compiler
     pub fn set_target_from_string(&mut self, triple: &String) -> Result<(), ygen::Target::TripleError>{
         self.set_target( &Triple::parse(triple)? );
         Ok(())
     }
 
+    /// Sets the target triple for the compiler
     pub fn set_target(&mut self, target: &Triple) {
         self.target = *target;
     }
 
+    /// Sets the output file
     pub fn set_out(&mut self, file_path: &String) {
         self.custom_out_file = Some(file_path.to_owned());
     }
 
+    /// Runs the compiler
     pub fn compile(&mut self) {
         let err = error::ErrorPrettyPrinter::new(self.file_path.to_string());
 

@@ -1,16 +1,22 @@
+//! Error printing infrastructure for flux
+
 use ygen::Support::Error as ErrorMaker;
 
+/// Pretty prints errors
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ErrorPrettyPrinter {
     file: String,
 }
 
 impl ErrorPrettyPrinter {
+    /// Creates a new `ErrorPrettyPrinter`
     pub fn new(file: String) -> Self {
         Self {
             file: file,
         }
     }
 
+    /// Prints the error
     pub fn print<T: Into<PrettyError> + Clone>(&self, error: &T) {
         // At first we turn the error into a PrettyError
         let error: PrettyError = error.to_owned().into();
@@ -29,6 +35,7 @@ impl ErrorPrettyPrinter {
     }
 }
 
+/// A error which can be "pretty" printed
 pub struct PrettyError {
     line: u64,
     coloumn: u64,
